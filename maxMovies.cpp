@@ -20,6 +20,39 @@ int dateToInt(string month, int day)
 	int intDate = map[month]*100 + day;
 	return intDate;
 }
+bool sortBySecond(pair<int, int>& a,
+                pair<int, int>& b)
+{
+    return (a.second < b.second);
+}
+void maxMovie(vector<pair<int,int>> intervals)
+{
+	// Sort the intervals according to the endDate of the interval
+	sort(intervals.begin(), intervals.end(), sortBySecond);
+	int count = 1;	// After sorting the first interval will be included for Greedy approach
+	//End date of first interval for the actor
+	int endDate1 = intervals[0].second;
+	for (int i = 1; i < intervals.size(); ++i)
+	{
+
+		int startDate2 = intervals[i].first;
+		int endDate2 = intervals[i].second;
+		// If this interval does not overlapp with the previous interval then it is included and count is increased
+		if(startDate2 > endDate1)
+		{
+			count++;
+			endDate1 =endDate2;
+		} 
+	}
+	if( count > 1)
+	{
+		cout << count <<" Crores" << endl;
+	}
+	else
+		cout << count <<" Crore" << endl;
+
+
+}
 
 
 int main()
@@ -48,9 +81,7 @@ int main()
 	{
 		dates[i] = make_pair(dateToInt(months[i].second,days[i].first),dateToInt(months[i].second,days[i].second));
 	}
-	for (int i = 0; i < n; ++i)
-	{
-		cout << dates[i].first << " " << dates[i].second << endl;
-	}
+	
+	maxMovie(dates);
 	return 0;
 }
