@@ -43,11 +43,14 @@ int main()
 		days.push_back(make_pair(startDay,endDay));
 		months.push_back(make_pair(startMonth,endMonth));
 	}
-
+	vector<pair<int,int>> dates(n);
 	for (int i = 0; i < n; ++i)
 	{
-		/* code */
-		cout << movies[i] << ": from " << dateToInt(months[i].first,days[i].first)<<" to "<<dateToInt(months[i].second,days[i].second)<< endl;
+		dates[i] = make_pair(dateToInt(months[i].second,days[i].first),dateToInt(months[i].second,days[i].second));
+	}
+	for (int i = 0; i < n; ++i)
+	{
+		cout << dates[i].first << " " << dates[i].second << endl;
 	}
 	return 0;
 }
